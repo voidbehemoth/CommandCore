@@ -302,42 +302,25 @@ namespace CommandCore
         public static ClientFeedbackType StringToFeedbackType(string str)
         {
             ClientFeedbackType result;
-            if (!(str == "normal"))
+
+            switch (str)
             {
-                if (!(str == "info"))
-                {
-                    if (!(str == "warning"))
-                    {
-                        if (!(str == "critical"))
-                        {
-                            if (!(str == "success"))
-                            {
-                                Console.WriteLine("Error: " + str + " is not a valid feedback type, defaulting to normal");
-                                result = 0;
-                            }
-                            else
-                            {
-                                result = (ClientFeedbackType)3;
-                            }
-                        }
-                        else
-                        {
-                            result = (ClientFeedbackType)1;
-                        }
-                    }
-                    else
-                    {
-                        result = (ClientFeedbackType)2;
-                    }
-                }
-                else
-                {
+                case "normal":
+                    result = (ClientFeedbackType)0;
+                    break;
+                case "info":
                     result = (ClientFeedbackType)4;
-                }
-            }
-            else
-            {
-                result = 0;
+                    break;
+                case "warning":
+                    result = (ClientFeedbackType)2;
+                    break;
+                case "critical":
+                    result = (ClientFeedbackType)1;
+                    break;
+                default:
+                    Console.WriteLine("Error: " + str + " is not a valid feedback type, defaulting to normal");
+                    result = 0;
+                    break;
             }
             return result;
         }
