@@ -1,0 +1,11 @@
+{
+  "HarmonyId": "voidbehemoth.commandcore",
+  "DisplayName": "Command Core",
+  "Authors": [
+    "VoidBehemoth"
+  ],
+  "Description": "A library used to easily implement commands.",
+  "Version": "1.0.0",
+  "RequiredMods": [],
+  "Settings": {}
+}
