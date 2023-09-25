@@ -187,7 +187,7 @@ namespace CommandCore
                     }
                 }
 
-                if (foundCommand == null) Utils.AddFeedbackMsg("Unrecognized command '" + name + "'");
+                if (foundCommand == null) Utils.AddFeedbackMsg("Unrecognized command '" + name + "'", true, "critical");
 
                 __instance.chatInput.text = string.Empty;
             }
@@ -233,7 +233,7 @@ namespace CommandCore
                 CommandCore.COMMANDS.Skip(1).ForEach((Command cmd) => { message += ", " + cmd.name; });
                 
                 message += "\n\nUse '/help [command name]' to get detailed information on one of the above commands.";
-                Utils.AddFeedbackMsg(message);
+                Utils.AddFeedbackMsg(message, true, "info");
                 return;
             }
 
@@ -248,7 +248,7 @@ namespace CommandCore
 
             if (command == null)
             {
-                Utils.AddFeedbackMsg("Unrecognized command '" + args[0] + "'");
+                Utils.AddFeedbackMsg("Unrecognized command '" + args[0] + "'", true, "critical");
                 return;
             }
 
@@ -259,11 +259,14 @@ namespace CommandCore
         {
             if (command == null) return;
 
-            string message = "Name: " + command.name;
+            string message = "Name: /" + command.name;
 
-            message += "\nAlias(es): " + command.aliases.First();
-            command.aliases.Skip(1).ForEach((string s) => { message += ", " + s; });
-
+            if (command.aliases.Length > 0)
+            {
+                message += "\nAlias(es): /" + command.aliases.First();
+                command.aliases.Skip(1).ForEach((string s) => { message += ", /" + s; });
+            }
+            
 
             if (!command.hasDescription)
             {
@@ -271,11 +274,11 @@ namespace CommandCore
 
             } else
             {
-                message += "\nDescription:" + command.description;
-                message += "\nSyntax:" + command.syntax;
+                message += "\nDescription: " + command.description;
+                message += "\nSyntax: " + command.syntax;
             }
 
-            Utils.AddFeedbackMsg(message);
+            Utils.AddFeedbackMsg(message, true, "info");
         }
     }
 
